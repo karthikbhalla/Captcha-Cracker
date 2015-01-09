@@ -142,6 +142,7 @@ for r in range(1,12):
 	im3 = Image.open("output"+str(xcount)+".gif")
 	im3 = im3.convert("P")	
 	im4 = Image.new("P",im3.size,255)
+	#here strts todays stuff
 	countt=0
 	flag=0
 	flag2=0
@@ -151,40 +152,42 @@ for r in range(1,12):
 	starty=0
 	endy=0
 	endx=0
+	#x axis values
 	for x in range(0,im3.size[0]):
-		countb=0
+		countb=0 #counter to check the number of pixels in each coloumn
+		#y axis values
 		for y in range(0,im3.size[1]):
 			pix=im3.getpixel((x,y))
-			if(pix==0):
-				if(flag==0):
+			if(pix==0): #to chk if pixel is black
+				if(flag==0): #to save initial pixel values of the first black pixel
 					tx=x
 					ty=y
 					flag=1;
-				countb=countb+1
-		countt=countt+countb
+				countb=countb+1 #to count the total num of black pixxels in a column
+		countt=countt+countb #to fix small errors to count the total num of black pixels in each crop part to remove small dot crops
 			
-		if(countb>=3 and flag2==0):
+		if(countb>=3 and flag2==0): #to strt the crop line
 			startx=tx
 			starty=ty
 			flag2=1
-			im4.putpixel((startx,starty),200)
+			im4.putpixel((startx,starty),200) # not important
 			
-		if(countb<3 and flag2==1):
+		if(countb<3 and flag2==1): #to find the end point of the crop part
 			#print 'hi'
 			endx=x-startx
-			bbox = (startx, 0, startx+endx, im3.size[1])
+			bbox = (startx, 0, startx+endx, im3.size[1]) #the actual crop box dimensions (google bbox if u have a doubt )
 			working_slice = im3.crop(bbox)
-			working_slice.save("outputcrop"+str(ccount)+".gif")
-			if(countt<20):
+			working_slice.save("outputcrop"+str(ccount)+".gif") #to save the crop pik
+			if(countt<20): # if total count (mentiond above) is small , then delete the crop (for small dot disturbances)
 				os.remove("outputcrop"+str(ccount)+".gif")
 			else:
-				destinationDir='C:\Users\Prasanth\Desktop\Main Project\crops'
+				destinationDir='C:\Users\Prasanth\Desktop\Main Project\crops' # to save the crops into a folder
 				if not os.path.exists(destinationDir): 
 					os.makedirs(destinationDir)
 				shutil.move("outputcrop"+str(ccount)+".gif", destinationDir)
 			countt=0
 			
-			flag=0
+			flag=0 # resetting flags to continue with the remaining alphabets in the captcha
 			flag2=0
 
 
