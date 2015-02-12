@@ -69,13 +69,16 @@ module Sr
 	@xdatas[i]=to_data(image)
 	end
   end
-
+ if File.exist?('save.txt')
+foo= Marshal.load File.open('save.txt', 'rb').read
+ else
  foo = Brain.new 
+ end
  @arr=('a'..'z').to_a + ('0'..'9').to_a
  x=Hash.new
 
   for i in @arr
-  path = "E:/New folder/"+i+".gif"
+  path = "C:/Users/admin/Desktop/"+i+".gif"
   x[i]=Magick::Image.read(path)[0]
   foo.puttoxdata(x[i],i)
   end
@@ -128,7 +131,7 @@ end
 end
  print "\nEnter the filename to recognize:"
  n=gets[0]
- path = "E:/New folder/#{n}.gif"
+ path = "C:/Users/admin/Desktop/#{n}.gif"
  x=Magick::Image.read(path)[0]
  print foo.classify(x)
  print "\nContinue?:"
@@ -137,6 +140,7 @@ end
 	break
 	end
 end
+File.open('save.txt', 'wb') {|f| f.write(Marshal.dump(foo)) }
 end
 
 
