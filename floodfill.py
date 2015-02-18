@@ -14,9 +14,9 @@ def floodfill(x, y, oldColor, newColor):
 	pix=im2.getpixel((y,x))
 	if (pix!= oldColor):
 		global finalx
-		finalx=x
+		finalx=y
 		global finaly
-		finaly=y
+		finaly=x
 		return
 	im2.putpixel((y,x),newColor)
 
@@ -31,39 +31,76 @@ def floodfill(x, y, oldColor, newColor):
 flag=0	
 xcord=0
 ycord=0
-xcount=2
-im2=Image.open("outputcrop15.gif")
-for y in range(im2.size[0]):
+xcount=0
+# im2=Image.open("output1.gif")
+# for y in range(im2.size[0]):
+	# if flag==1:
+		# floodfill(xcord,ycord,0,150)
+		# flag=0
+		# im2.putpixel((y,finalx),80)
+		# im2.save("exp"+str(xcount)+".gif")
+		# xcount=xcount+1
+		# bbox = (y, 0,fycord+finaly, im2.size[1])
+		
+		# working_slice = im2.crop(bbox)
+		# working_slice.save("lala"+str(xcount)+".gif")
+		# break
+	# for x in range(im2.size[1]):
+		# pix = im2.getpixel((y,x))
+		# if pix!=255:
+			# xcord=x
+			# ycord=y
+			# fxcord=y
+			# fycord=x
+			# flag=1
+			# break
+		# else:
+			# im2.putpixel((y,x),80)
+	
+		
+			
+			
+fxcord=0
+fycord=0
+checky=0			
+im2=Image.open("output1.gif")
+for y in range(finaly,im2.size[0]):
 	if flag==1:
-		floodfill(xcord,ycord,0,255)
+		floodfill(xcord,ycord,0,150)
 		flag=0
-		if xcount>1:
-			im2.save("exp"+str(xcount)+".gif")
-			xcount=xcount-1
-	for x in range(im2.size[1]):
+		im2.save("exp"+str(xcount)+".gif")
+		
+		#print finalx
+		#print finaly
+		xcount=xcount+1
+		flag=0
+	for x in range(0,im2.size[1]):
 		pix = im2.getpixel((y,x))
-		if pix!=255:
+		if pix!=255 and pix!=150:
+			fxcord=x
+			fycord=y
+			if checky==1:
+				ffxcord=fxcord-xcord
+				ffycord=fycord-ycord
+				bbox = (ycord, 0,ycord+ffycord, im2.size[1])
+			
+				working_slice = im2.crop(bbox)
+				working_slice.save("lala"+str(xcount)+".gif")
 			xcord=x
 			ycord=y
+			checky=1
 			flag=1
 			break
 			
-im2=Image.open("outputcrop15.gif")
-for y in range(finaly,im2.size[0]):
-	if flag==1:
-		floodfill(xcord,ycord,0,255)
-		flag=0
-		im2.save("exp"+str(xcount)+".gif")
-		print finalx
-		print finaly
-		xcount=xcount+1
-	for x in range(finalx,im2.size[1]):
-		pix = im2.getpixel((y,x))
-		if pix!=255:
-			xcord=x
-			ycord=y
-			flag=1
-			break
+bbox = (ycord, 0,ycord+ffycord, im2.size[1])
+			
+working_slice = im2.crop(bbox)
+working_slice.save("lala"+str(xcount)+".gif")
+		
+		
+			
+			
+	
 			
 
 
