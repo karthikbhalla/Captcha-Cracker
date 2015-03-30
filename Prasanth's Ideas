@@ -1,0 +1,36 @@
+This is the text file for Prasanth's Ideas
+
+Simple Ones : Bicolor-ish
+
+Point 1-> How to determine darker areas -  Examples include using `image filters` which blur the image horizontally and look 
+for darker areas (because the blur causes the text to be highlighted).
+
+Point 2-> How to remove color. Group the pixels together by amount. If the captcha text is in a single color, convert them into black
+as well as nearby colors (if its red, anything in the range of 200). The rest (noise or background) convert into white.
+
+REGULAR CAPTCHAS have the background color the most obvious. So take the next color for your text.
+
+A CAPTCHA scheme is considered broken if an algorithm is able to reach a precision of at least one percent. 
+
+Humans take 10 seconds to at least evaluate the captchaa
+
+Conversely, efforts to create CAPTCHA-crushing programs by a team of Stanford researchers resulted in only a 25 percent success rate.
+
+
+Recaptchas are all based on real words.
+
+Implode function to straigten out letters?
+
+http://www.ai-junkie.com/ good tutorial for neural networks and genetic algorithms
+
+http://docs.opencv.org/doc/tutorials/imgproc/histograms/template_matching/template_matching.html
+
+Open CV maybe for processing and tesseract for recognizing?
+
+http://stackoverflow.com/questions/17772623/how-to-call-a-python-script-from-a-web-page
+
+http://python.talkera.org/creating-a-webbrowser-with-python-and-pyqt-tutorial/
+
+http://www.eurion.net/python-snippets/snippet/Webkit%20Browser.html
+
+

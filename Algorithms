@@ -1,0 +1,9 @@
+Algorithm to group pixels and determine they are a letter.
+
+for each binary image:
+  for each pixel in the binary image:
+    if the pixel is on:
+      if any pixel we have seen before is next to it:
+        add to the same set
+      else:
+        add to a new set

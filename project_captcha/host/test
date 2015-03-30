@@ -1,0 +1,2 @@
+import os
+os.system('start C:\\Users\\Prasanth\\Desktop\\project_captcha\\host\\install.bat')
