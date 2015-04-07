@@ -54,6 +54,6 @@ for l in range(0,1):
 						continue
 							
 		im3.save("C:\\Users\\Prasanth\\Desktop\\project_captcha\\host\\output"+str(xcount)+".gif")
-		print 'done cleaning'
+		#print 'done cleaning'
 		#xcount=xcount+1
-print 'finally done'
+#print 'finally done'

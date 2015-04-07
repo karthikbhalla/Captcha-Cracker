@@ -9,6 +9,8 @@
 import struct
 import sys
 import threading
+import subprocess
+from subprocess import Popen
 import Queue
 from tkFileDialog import askopenfile, asksaveasfile
 
@@ -34,8 +36,17 @@ def send_message(message):
   sys.stdout.flush()
 
 # Thread that reads messages from the webapp.
+def process_again():
+	#print 'hi'
+	execfile('C:\\Users\\Prasanth\\Desktop\\project_captcha\\host\\exp2.py')
+	p = Popen("C:\\Users\\Prasanth\\Desktop\\project_captcha\\host\\install.bat",creationflags=subprocess.CREATE_NEW_CONSOLE)
+	#stdout, stderr = p.communicate()
+	
+	
 def process():
-	execfile('C:\\Users\\Prasanth\\Desktop\\projectcaptcha\\host\\floodfill.py')
+	threadxyz = threading.Thread(target=process_again, args=())
+	threadxyz.start()
+	
 def read_thread_func(queue):
   message_number = 0
   while 1:
@@ -45,7 +56,7 @@ def read_thread_func(queue):
     if len(text_length_bytes) == 0:
       if queue:
         queue.put(None)
-      sys.exit(0)
+      #sys.exit(0)
 
     # Unpack message length as 4 byte integer.
     text_length = struct.unpack('i', text_length_bytes)[0]
@@ -100,25 +111,28 @@ if Tkinter:
       self.after(100, self.processMessages)
 
     def onSend(self):
-	  f = askopenfile(mode='r', defaultextension=".txt", initialfile="read.txt", initialdir="C:\\Users\\Prasanth\\Desktop\\projectcapftcha\\host")
-	  for line in f:
+      
+      f = askopenfile(mode='r', defaultextension=".txt", initialfile="captext.txt", initialdir="C:\\Users\\Prasanth\\Desktop\\project_captcha\\host\\captcha2")
+      for line in f:
 	   m=line
-	  m=m.rstrip('\n')
-	  f.close()
-	  text = '{"text": "' + m + '"}'
-	  #text = '{"text": "' + "hello" + '"}'
+      m=m.rstrip('\n')
+      f.close()
+      text = '{"text": "' + m + '"}'
+      #text = '{"text": "' + "hello" + '"}'
 	  
-	  self.log('Sending %s' % text)
+      self.log('Sending %s' % text)
       
 	  
       
 	  
 	  #text="hello"
-	  try:
+      try:
 	   send_message(text)
-	  except IOError:
+	   
+      except IOError:
 	   tkMessageBox.showinfo('Native Messaging Example','Failed to send message.')
-	   sys.exit(1)
+	   #sys.exit(1)
+      self.log('Sending worked %s' % text)
 
     def log(self, message):
       self.text.config(state=Tkinter.NORMAL)
@@ -131,7 +145,7 @@ def Main():
     send_message('"Tkinter python module wasn\'t found. Running in headless ' +
                  'mode. Please consider installing Tkinter."')
     read_thread_func(None)
-    sys.exit(0)
+    #sys.exit(0)
 
   queue = Queue.Queue()
 
@@ -144,7 +158,7 @@ def Main():
 
   main_window.mainloop()
 
-  sys.exit(0)
+  #sys.exit(0)
 
 
 if __name__ == '__main__':

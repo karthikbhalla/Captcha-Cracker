@@ -97,7 +97,7 @@ for abc in range(1,2):
 					ffxcord=fxcord-xcord
 					ffycord=fycord-ycord
 					bbox = (ycord, highy,ycord+ffycord, lowy)
-					print highy
+					#print highy
 				
 					working_slice = im2.crop(bbox)
 					working_slice.thumbnail((9,11),Image.ANTIALIAS)

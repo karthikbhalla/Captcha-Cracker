@@ -11,7 +11,7 @@ for r in range(1,2):
 	file = open('C:\Users\Prasanth\Desktop\project_captcha\host\\write.txt', 'r')
 	link=file.read()
 	data = re.split('"',link)
-	print data[3]
+	#print data[3]
 	urllib.urlretrieve(data[3], "C:\Users\Prasanth\Desktop\project_captcha\host\\crop0.gif")	
 	im = Image.open("C:\Users\Prasanth\Desktop\project_captcha\host\\crop"+str(xcount)+".gif")
 	im = im.convert("L")

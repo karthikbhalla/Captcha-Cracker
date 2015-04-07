@@ -55,7 +55,7 @@ for z in range(0,6):
 			guess.append( ( v.relation(y[0],buildvector(im4)),x) )
 
 		guess.sort(reverse=True)
-	print "",guess[0]
+	#print "",guess[0]
 	let=guess[0][1]
 	
 	f1=open('captext.txt', 'a')
