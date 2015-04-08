@@ -3,6 +3,7 @@ from operator import itemgetter
 import os
 import shutil
 import math
+
 class VectorCompare:
   def magnitude(self,concordance):
     total = 0
@@ -18,16 +19,12 @@ class VectorCompare:
         topvalue += count * concordance2[word]
     return topvalue / (self.magnitude(concordance1) * self.magnitude(concordance2))
 
-
-
 def buildvector(im):
   d1 = {}
-
   count = 0
   for i in im.getdata():
     d1[count] = i
     count += 1
-
   return d1
   
 v = VectorCompare()
@@ -53,7 +50,6 @@ for z in range(0,15):
 		for x,y in image.iteritems():
 		  if len(y) != 0:
 			guess.append( ( v.relation(y[0],buildvector(im4)),x) )
-
 		guess.sort(reverse=True)
 	print "",guess[0]
 

@@ -37,9 +37,15 @@ function sendNativeMessage(urlvalue) {
   appendMessage("Sent message: <b>" + JSON.stringify(message) + "</b>");
 }
 
+  var app_id = 'fggpklojkoojolbcbplpkbfkcieknbad' //this is the ext id
+var port4=chrome.runtime.connect(app_id);
+
+
 function onNativeMessage(message) {
   appendMessage("Received message: <b>" + JSON.stringify(message) + "</b>");
   msg=message;
+  port4.postMessage(msg);
+
 }
 
 function onDisconnected() {

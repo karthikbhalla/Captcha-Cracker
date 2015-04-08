@@ -5,6 +5,8 @@
   "permissions": [
     "tabs","<all_urls>","downloads"
     ],
+	"optional_permissions": [ "clipboardRead","clipboardWrite" ]
+	,
   "browser_action": {
       "default_title": "Set this page's color.",
       "default_icon": "icon.png",

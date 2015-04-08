@@ -7,6 +7,7 @@ var x = document.getElementsByTagName("img");
 var flag=0;
 var ress="";
 
+
 for(k=0;k<x.length;k++)
 	
 	{
@@ -44,7 +45,7 @@ chrome.runtime.sendMessage(app_id, {taburl:samp}, function(result) {
         }
     });
 
-var x = document.getElementsByTagName("input");
+/* var x = document.getElementsByTagName("input");
 
 for(k=0;k<x.length;k++)
 	
@@ -60,6 +61,20 @@ for(k=0;k<x.length;k++)
 		}
 	
 	}
+ */
+chrome.runtime.onMessage.addListener(
+  function(message, sender, sendResponse) {
+  console.log('entered');
+  console.log(message.captcha);
+    // TODO: Validate that sender.id is allowed to invoke the app!
+alert(message.captcha);
+    
+  
+	
+    // if you want to send a reply asynchronously, uncomment the next line.
+    // return true;
+});	
+	
 //fr.onerror = function() { /* handle error */ };
 
 

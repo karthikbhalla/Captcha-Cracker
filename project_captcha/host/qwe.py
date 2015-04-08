@@ -5,7 +5,7 @@
 
 # A simple native messaging host. Shows a Tkinter dialog with incoming messages
 # that also allows to send message back to the webapp.
-
+import time
 import struct
 import sys
 import threading
@@ -46,7 +46,26 @@ def process_again():
 def process():
 	threadxyz = threading.Thread(target=process_again, args=())
 	threadxyz.start()
-	
+
+def onSend():
+  
+  #f = askopenfile(mode='r', defaultextension=".txt", initialfile="captext.txt", initialdir="C:\\Users\\Prasanth\\Desktop\\project_captcha\\host\\captcha2")
+  f2=open('C:\\Users\\Prasanth\\Desktop\\project_captcha\\host\\captcha2\\captext.txt','r')
+  for line in f2:
+   m=line
+  m=m.rstrip('\n')
+  f2.close()
+  text = '{"text": "' + m + '"}'
+  #text = '{"text": "' + "hello" + '"}'
+  #self.log('Sending %s' % text)
+  try:
+   send_message(text)
+  except IOError:
+   tkMessageBox.showinfo('Native Messaging Example','Failed to send message.')
+   #sys.exit(1)
+  #self.log('Sending worked %s' % text)
+
+  
 def read_thread_func(queue):
   message_number = 0
   while 1:
@@ -78,19 +97,19 @@ if Tkinter:
       Tkinter.Frame.__init__(self)
       self.pack()
 
-      self.text = Tkinter.Text(self)
-      self.text.grid(row=0, column=0, padx=10, pady=10, columnspan=2)
-      self.text.config(state=Tkinter.DISABLED, height=10, width=40)
+      #self.text = Tkinter.Text(self)
+      #self.text.grid(row=0, column=0, padx=10, pady=10, columnspan=2)
+      #self.text.config(state=Tkinter.DISABLED, height=10, width=10)
 
-      self.messageContent = Tkinter.StringVar()
-      self.sendEntry = Tkinter.Entry(self, textvariable=self.messageContent)
-      self.sendEntry.grid(row=1, column=0, padx=10, pady=10)
+      #self.messageContent = Tkinter.StringVar()
+      #self.sendEntry = Tkinter.Entry(self, textvariable=self.messageContent)
+      #self.sendEntry.grid(row=1, column=0, padx=10, pady=10)
 
-      self.sendButton = Tkinter.Button(self, text="Send", command=self.onSend)
-      self.sendButton.grid(row=1, column=1, padx=10, pady=10)
+      #self.sendButton = Tkinter.Button(self, text="Send", command=onSend)
+      #self.sendButton.grid(row=1, column=1, padx=10, pady=10)
 	  
-      self.processButton = Tkinter.Button(self, text="Process", command=process)
-      self.processButton.grid(row=1, column=2, padx=10, pady=10)
+      #self.processButton = Tkinter.Button(self, text="Process", command=process)
+      #self.processButton.grid(row=1, column=2, padx=10, pady=10)
 
       self.after(100, self.processMessages)
 
@@ -101,38 +120,23 @@ if Tkinter:
           self.quit()
           return
         self.log("Received %s" % message)
-        f = asksaveasfile(mode='w', defaultextension=".txt", initialfile="write.txt", initialdir="C:\\Users\\Prasanth\\Desktop\\projectcapftcha\\host")
-        if not f:
-			return
+        f=open("C:\\Users\\Prasanth\\Desktop\\project_captcha\\host\\write.txt",'w')
         f.write(message)
         f.close()
-        #execfile("C:\\Users\\Prasanth\\Desktop\\projectcaptcha\\host\\exp2.py")
+        process()
+        time.sleep(14)
+        onSend()
+        
+		#f = asksaveasfile(mode='w', defaultextension=".txt", initialfile="write.txt", initialdir="C:\\Users\\Prasanth\\Desktop\\projectcapftcha\\host")
+        #if not f:
+		#	return
+        #f.write(message)
+        #f.close()
+        
 
       self.after(100, self.processMessages)
 
-    def onSend(self):
-      
-      f = askopenfile(mode='r', defaultextension=".txt", initialfile="captext.txt", initialdir="C:\\Users\\Prasanth\\Desktop\\project_captcha\\host\\captcha2")
-      for line in f:
-	   m=line
-      m=m.rstrip('\n')
-      f.close()
-      text = '{"text": "' + m + '"}'
-      #text = '{"text": "' + "hello" + '"}'
-	  
-      self.log('Sending %s' % text)
-      
-	  
-      
-	  
-	  #text="hello"
-      try:
-	   send_message(text)
-	   
-      except IOError:
-	   tkMessageBox.showinfo('Native Messaging Example','Failed to send message.')
-	   #sys.exit(1)
-      self.log('Sending worked %s' % text)
+   
 
     def log(self, message):
       self.text.config(state=Tkinter.NORMAL)

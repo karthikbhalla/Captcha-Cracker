@@ -3,6 +3,7 @@ from operator import itemgetter
 import os
 import shutil
 import math
+import pyperclip
 class VectorCompare:
   def magnitude(self,concordance):
     total = 0
@@ -62,4 +63,12 @@ for z in range(0,6):
 	f1.write(let)
 	f1.close()
 
-	xcountx += 1			
+	xcountx += 1
+
+f2=open('captext.txt','r')
+finalread=f2.read()
+f2.close()
+
+pyperclip.copy(finalread)
+spam = pyperclip.paste()
+	
